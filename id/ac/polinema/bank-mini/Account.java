@@ -2,23 +2,21 @@ package id.ac.polinema;
 
 public class Account {
     private String accountNumber;
-    private String ownerName;
+    private Customer owner;
     private double balance;
-    private double dailyWithdrawalLimit;
 
-    public Account(String accountNumber,String ownerName, double balance, double dailyWithdrawalLimit) {
+    public Account(String accountNumber, Customer owner, double balance) {
         this.accountNumber = accountNumber;
-        this.ownerName = ownerName;
+        this.owner = owner;
         this.balance = balance;
-        this.dailyWithdrawalLimit = dailyWithdrawalLimit;
     }
 
     public String getAccountNumber() {
         return accountNumber;
     }
-    
-    public String getOwnerName() {
-        return ownerName;
+
+    public Customer getOwner() {
+        return owner;
     }
 
     public double getBalance() {
@@ -34,7 +32,7 @@ public class Account {
     }
 
     public boolean withdraw(double amount) {
-        if (amount <= 0 || amount > balance || amount > dailyWithdrawalLimit) {
+        if (amount <= 0 || amount > balance) {
             return false;
         }
         balance -= amount;
@@ -42,14 +40,6 @@ public class Account {
     }
 
     public void printInfo() {
-        System.out.println(accountNumber + " - " + ownerName + " - balance: " + balance);
-    }
-
-    public String formatBalance() {
-        return String.format("%,.2f", balance);
-    }
-
-    public boolean isOverdrawn() {
-        return balance < 0;
+        System.out.println(accountNumber + " - " + owner.getName() + " - balance: " + balance);
     }
 }
