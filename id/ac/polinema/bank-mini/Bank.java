@@ -24,13 +24,17 @@ public class Bank {
         return true;
     }
 
-    public Account findAccount(String accountNumber) {
+    public void findAccount(String accountNumber) throws AccountNotFoundException {
+        boolean found = false;
         for (int i = 0; i < count; i++) {
             if (accounts[i].getAccountNumber().equals(accountNumber)) {
-                return accounts[i];
+                accounts[i].printInfo();
+                found = true;
             }
         }
-        return null;
+        if (!found) {
+            throw new AccountNotFoundException("Account with number " + accountNumber + " not found");
+        }
     }
 
     public void printAllAccounts() {
@@ -47,6 +51,14 @@ public class Bank {
                 System.out.println(acc.getAccountNumber() + " interest applied, new balance: " + acc.getBalance());
             }
             System.out.println(acc.getAccountNumber() + " monthly fee: " + acc.monthlyFee());
+        }
+    }
+    
+    public void printAuditLog(){
+        for (Account acc : accounts) {
+            if (acc instanceof Auditable audit) {
+                System.out.println(audit.auditLog());
+            }
         }
     }
 }

@@ -29,5 +29,16 @@ public class Main {
         bank.addAccount(acc2);
         bank.addAccount(savings);
         bank.processMonthEnd();
+        bank.printAuditLog();
+        try {
+            bank.findAccount("A005");
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            bank.findAccount("A003");
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
