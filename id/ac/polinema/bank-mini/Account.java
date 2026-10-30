@@ -1,9 +1,10 @@
 package id.ac.polinema;
 
-public class Account {
+public abstract class Account {
     private String accountNumber;
     private Customer owner;
     private double balance;
+    public abstract double monthlyFee();
 
     public Account(String accountNumber, Customer owner, double balance) {
         this.accountNumber = accountNumber;
@@ -31,12 +32,24 @@ public class Account {
         return true;
     }
 
-    public boolean withdraw(double amount) {
-        if (amount <= 0 || amount > balance) {
+    public boolean deposit(double amount, String note) {
+        if (!deposit(amount)) {
             return false;
         }
-        balance -= amount;
+        System.out.println(accountNumber + " deposit note: " + note);
         return true;
+    }
+
+    public void withdraw(double amount) throws InsufficientBalanceException {
+        if (!canWithdraw(amount)) {
+            throw new InsufficientBalanceException(
+                    accountNumber + ": insufficient balance for withdrawal of " + amount);
+        }
+        balance -= amount;
+    }
+
+    protected boolean canWithdraw(double amount) {
+        return amount > 0 && amount <= balance;
     }
 
     public void printInfo() {
