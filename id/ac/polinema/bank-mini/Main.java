@@ -36,7 +36,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
         try {
-            bank.findAccount("A003");
+            bank.findAccount("A003").printInfo();
         } catch (AccountNotFoundException e) {
             System.out.println(e.getMessage());
         }
