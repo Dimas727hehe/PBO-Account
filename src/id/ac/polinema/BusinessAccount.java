@@ -1,16 +1,10 @@
 package id.ac.polinema;
 
 public class BusinessAccount extends Account {
-    private double monthlyTransactionFee;
     private static final double MINIMUM_BALANCE = 1000000;
 
-    public BusinessAccount(String accountNumber, Customer owner, double balance, double monthlyTransactionFee) {
+    public BusinessAccount(String accountNumber, Customer owner, double balance) {
         super(accountNumber, owner, balance);
-        this.monthlyTransactionFee = monthlyTransactionFee;
-    }
-
-    public double getMonthlyTransactionFee() {
-        return monthlyTransactionFee;
     }
 
     @Override
@@ -19,13 +13,13 @@ public class BusinessAccount extends Account {
     }
 
     @Override
-    public void printInfo() {
-        super.printInfo();
-        System.out.println("Account type: Business, monthly fee: " + monthlyTransactionFee);
+    public double monthlyFee() {
+        return 0;
     }
 
     @Override
-    public double monthlyFee() {
-        return 0;
+    public void printInfo() {
+        super.printInfo();
+        System.out.println("Account type: Business");
     }
 }

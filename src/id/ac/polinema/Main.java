@@ -14,31 +14,27 @@ public class Main {
         try {
             savings.withdraw(70000);
         } catch (InsufficientBalanceException e) {
-            System.out.println("Withdrawal failed: "+e.getMessage());
+            System.out.println("Withdrawal failed: " + e.getMessage());
         }
 
         try {
             savings.withdraw(30000);
             System.out.println("Withdrawal succeeded, new balance: " + savings.getBalance());
         } catch (InsufficientBalanceException e) {
-            System.out.println("Withdrawal failed: "+e.getMessage());
+            System.out.println("Withdrawal failed: " + e.getMessage());
         }
 
-        Bank bank = new Bank(10);
+        Customer customer4 = new Customer("Budi", "0812-0000-0004");
+        BusinessAccount business = new BusinessAccount("A004", customer4, 2000000);
+
+        Bank bank = new Bank(new InMemoryAccountRepository());
         bank.addAccount(acc1);
         bank.addAccount(acc2);
         bank.addAccount(savings);
+        bank.addAccount(business);
         bank.processMonthEnd();
-        bank.printAuditLog();
-        try {
-            bank.findAccount("A005");
-        } catch (AccountNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            bank.findAccount("A003").printInfo();
-        } catch (AccountNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
+
+        bank.printHistory("A003");
+        bank.printAllAccounts();
     }
 }
